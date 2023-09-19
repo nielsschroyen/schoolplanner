@@ -1,0 +1,22 @@
+<H1>Kalender</H1>
+
+
+<div *ngIf="calendar$ | async as calendar else loading" style="margin-left: -10px;">
+
+  <div class="calendar-table">
+    <div class="calendar-header-column">datum</div>
+    <div class="calendar-header-column">Taken</div>
+    <ng-container  *ngFor="let calendarDay of calendar.calendarDays">
+      <div class="calendar-column calendar-first-column" [ngClass]="{'has-tasks' : calendarDay.tasks.length > 0, 'is-monday': isMonday(calendarDay), 'is-today': calendarDay.today} ">
+        {{calendarDay.day | date:"EE dd LLL" }}
+      </div>
+      <div class="calendar-column"  [ngClass]="{'has-tasks' : calendarDay.tasks.length > 0,'is-monday': isMonday(calendarDay), 'is-today': calendarDay.today} ">
+        <div *ngFor="let task of calendarDay.tasks">
+          ({{task.course.name}}) {{task.task.name}}  <progress value="{{task.task.currentProgress}}" max={{task.task.totalEffort}}> {{getProgress(task)}} % </progress>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #loading>...</ng-template>

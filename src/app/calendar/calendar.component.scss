@@ -1,0 +1,38 @@
+.calendar-table{
+  display: grid;
+  grid-template-columns: 1fr 80%;
+}
+
+.calendar-table .calendar-column {
+  border-top: 1px solid #e0e0e0;
+  padding: 10px;
+}
+
+.calendar-table .calendar-column.has-tasks {
+  background-color: #ddf0ee;
+}
+
+.calendar-table .calendar-first-column {
+  font-weight: bolder;
+}
+
+.calendar-table .calendar-first-column.is-today {
+  border-left: 2px solid #288be3;
+}
+
+.calendar-table .calendar-header-column{
+  padding: 10px;
+  font-weight: bolder;
+}
+
+.calendar-table .calendar-column.is-monday {
+  border-top: 2px solid #288be3;
+}
+
+.calendar-table .calendar-column.is-monday {
+  border-top: 2px solid #288be3;
+}
+
+
+
+

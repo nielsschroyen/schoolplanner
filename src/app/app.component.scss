@@ -1,0 +1,38 @@
+.top-navigation-links{
+  margin-left: 40px;
+  height: 100%;
+}
+
+ul.top-navigation-links{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+
+.top-navigation-links li{
+  display: inline-block;
+  height: 100%;
+}
+
+
+.top-navigation-links li a {
+  color:white;
+}
+
+.top-navigation-links-wrapper-1{
+  display: table;
+  height: 100%;
+  overflow: hidden;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.is-active  .top-navigation-links-wrapper-1{
+  background-color: #00305A;
+}
+
+
+.top-navigation-links-wrapper-2{
+  display: table-cell;
+  vertical-align: middle;
+}
