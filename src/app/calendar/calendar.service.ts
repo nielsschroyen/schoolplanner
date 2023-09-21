@@ -1,21 +1,15 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Course} from "./models/course";
 import {Observable, tap} from "rxjs";
-import {EnvironmentService} from "./environment.service";
-import {Calendar} from "./models/calendar/calendar";
+import {Calendar} from "./models/calendar";
+import {EnvironmentService} from "../environment.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class CalendarService {
   constructor(private _httpClient: HttpClient,
               private _environmentService: EnvironmentService){
-  }
-
-  public listCourses(): Observable<Course[]> {
-    return this._httpClient
-         .get<Course[]>(this._getApi() + "/courses");
   }
 
   private _getApi(): String{

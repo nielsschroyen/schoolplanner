@@ -7,20 +7,25 @@ import { CoursesComponent } from './courses/courses.component';
 import {HttpClientModule} from "@angular/common/http";
 import {CalendarComponent} from "./calendar/calendar.component";
 import {AddCourseComponent} from "./courses/addcourse/add-course.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {DivVerticalAlignComponent} from "./utils/div-vertical-align.component";
+import {NgxPopperjsModule} from "ngx-popperjs";
 
 @NgModule({
   declarations: [
     AppComponent,
     CoursesComponent,
     CalendarComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    DivVerticalAlignComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPopperjsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

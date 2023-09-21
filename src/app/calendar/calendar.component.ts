@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiService} from "../api.service";
 import {Observable} from "rxjs";
-import {Calendar} from "../models/calendar/calendar";
-import {CalendarDay} from "../models/calendar/calendar-day";
-import {CalendarTask} from "../models/calendar/calendar-task";
+import {Calendar} from "./models/calendar";
+import {CalendarService} from "./calendar.service";
+import {CalendarDay} from "./models/calendar-day";
+import {CalendarTask} from "./models/calendar-task";
 
 @Component({
   selector: 'app-calendar',
@@ -14,12 +14,12 @@ export class CalendarComponent implements OnInit{
 
   calendar$?: Observable<Calendar>;
 
-  constructor(private _apiService: ApiService){
+  constructor(private _calendarService: CalendarService){
 
   }
 
   ngOnInit(): void {
-    this.calendar$ = this._apiService.getCalendar();
+    this.calendar$ = this._calendarService.getCalendar();
   }
 
   isMonday(calendarDay: CalendarDay):boolean {

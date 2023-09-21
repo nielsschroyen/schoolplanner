@@ -1,5 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Course} from "../../models/course";
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Course} from "../models/course";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {CourseService} from "../course.service";
+import {assignToType} from "../../utils/assignToType";
 
 @Component({
   selector: 'app-add-course',
@@ -8,12 +11,29 @@ import {Course} from "../../models/course";
 })
 export class AddCourseComponent implements OnInit {
 
-  model: Course = {
-    name: '',
-    description: ''
-  };
+  @Output() onCourseAdded:EventEmitter<Course> = new EventEmitter<Course>();
 
-  onSubmit() { }
+  addCourseForm: FormGroup = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      description: new FormControl('',[Validators.required]),
+    }
+  );
+
+
+  constructor(private _courseService: CourseService){
+
+  }
+
+  get name() { return this.addCourseForm.get('name'); }
+  get description() { return this.addCourseForm.get('description'); }
+
+  onSubmit() {
+    this._courseService.create(assignToType<Course>(this.addCourseForm.value))
+      .subscribe((course:Course)=>{
+        this.onCourseAdded.emit(course);
+        this.addCourseForm.reset();
+      });
+  }
 
 
   ngOnInit(): void {
