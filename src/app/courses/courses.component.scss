@@ -1,0 +1,23 @@
+.courses-table{
+  display: grid;
+  grid-template-columns: auto auto 100px;
+}
+
+.courses-table .courses-column {
+  border-top: 1px solid #e0e0e0;
+  padding: 10px;
+}
+
+.courses-table .courses-column.hasTasks {
+  background-color: #ddf0ee;
+
+}
+
+.courses-table .courses-first-column {
+  font-weight: bolder;
+}
+
+.courses-table .courses-header-column{
+  padding: 10px;
+  font-weight: bolder;
+}

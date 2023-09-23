@@ -10,14 +10,22 @@ import {AddCourseComponent} from "./courses/addcourse/add-course.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DivVerticalAlignComponent} from "./utils/div-vertical-align.component";
 import {NgxPopperjsModule} from "ngx-popperjs";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {AddTaskComponent} from "./tasks/addtask/add-task.component";
+import {ModalConfirmComponent} from "./utils/modals/confirm/modal-confirm.component";
+import {EditTaskComponent} from "./tasks/edittask/edit-task.component";
 
 @NgModule({
   declarations: [
+
     AppComponent,
     CoursesComponent,
     CalendarComponent,
     AddCourseComponent,
-    DivVerticalAlignComponent
+    AddTaskComponent,
+    EditTaskComponent,
+    DivVerticalAlignComponent,
+    ModalConfirmComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +33,8 @@ import {NgxPopperjsModule} from "ngx-popperjs";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPopperjsModule
+    NgxPopperjsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

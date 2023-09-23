@@ -1,40 +1,36 @@
-import { Injectable } from '@angular/core';
-import {ModalConfirmComponent} from "./modal-confirm.component";
+import {Injectable} from "@angular/core";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {filter, map, Observable} from "rxjs";
+import {createModalConfirmModel} from "./confirm/modal-confirm.model";
+import {ModalConfirmComponent} from "./confirm/modal-confirm.component";
+import {ModalFormModel} from "./modal-form.model";
 
-
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class ModalService {
-  private modals: ModalConfirmComponent[] = [];
-
-  add(modal: ModalConfirmComponent) {
-    // ensure component has a unique id attribute
-    if (!modal.id || this.modals.find(x => x.id === modal.id)) {
-      throw new Error('modal must have a unique id attribute');
-    }
-
-    // add modal to array of active modals
-    this.modals.push(modal);
+  constructor(private _modalService: NgbModal){
   }
 
-  remove(modal: ModalConfirmComponent) {
-    // remove modal from array of active modals
-    this.modals = this.modals.filter(x => x !== modal);
+  public openConfirmModal(title:String, description:String,  deleteButton?:String):Observable<boolean>{
+    let ngbModalRef:NgbModalRef  = this._modalService.open(ModalConfirmComponent );
+    ngbModalRef.componentInstance.modalConfirmModel = createModalConfirmModel(title,description,deleteButton );
+    return ngbModalRef.closed
+      .pipe(
+        filter(x=> x === 'confirm')
+      );
   }
 
-  open(id: string) {
-    // open modal specified by id
-    const modal = this.modals.find(x => x.id === id);
-
-    if (!modal) {
-      throw new Error(`modal '${id}' not found`);
-    }
-
-    modal.open();
+  public openFormModal<T>(componentModel:ModalFormModel<T>):Observable<T>{
+    let ngbModalRef:NgbModalRef  = this._modalService.open(componentModel.component, { size: 'lg' });
+    ngbModalRef.componentInstance.modalFormModel = componentModel.componentModel;
+    return ngbModalRef.closed
+        .pipe(
+            filter(result=> !!result)
+        );
   }
 
-  close() {
-    // close the modal that is currently open
-    const modal = this.modals.find(x => x.isOpen);
-    modal?.close();
-  }
+
+
+
 }

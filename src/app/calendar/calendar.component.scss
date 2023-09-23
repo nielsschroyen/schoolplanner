@@ -5,7 +5,8 @@
 
 .calendar-table .calendar-column {
   border-top: 1px solid #e0e0e0;
-  padding: 10px;
+  padding: 5px 10px;
+  line-height: 30px;
 }
 
 .calendar-table .calendar-column.has-tasks {
@@ -21,7 +22,8 @@
 }
 
 .calendar-table .calendar-header-column{
-  padding: 10px;
+  ppadding: 5px 10px;
+  line-height: 30px;
   font-weight: bolder;
 }
 
@@ -32,6 +34,15 @@
 .calendar-table .calendar-column.is-monday {
   border-top: 2px solid #288be3;
 }
+
+a.inline-link{
+  cursor: pointer;
+}
+
+a.inline-link:hover{
+  text-decoration: underline;
+}
+
 
 
 

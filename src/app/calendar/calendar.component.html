@@ -8,11 +8,11 @@
     <div class="calendar-header-column">Taken</div>
     <ng-container  *ngFor="let calendarDay of calendar.calendarDays">
       <div class="calendar-column calendar-first-column" [ngClass]="{'has-tasks' : calendarDay.tasks.length > 0, 'is-monday': isMonday(calendarDay), 'is-today': calendarDay.today} ">
-        {{calendarDay.day | date:"EE dd LLL" }}
+      <a class="inline-link" (click)="addTask(calendarDay)"> {{calendarDay.day | date:"EE dd LLL" }} </a>
       </div>
       <div class="calendar-column"  [ngClass]="{'has-tasks' : calendarDay.tasks.length > 0,'is-monday': isMonday(calendarDay), 'is-today': calendarDay.today} ">
         <div *ngFor="let task of calendarDay.tasks">
-          ({{task.course.name}}) {{task.task.name}}  <progress value="{{task.task.currentProgress}}" max={{task.task.totalEffort}}> {{getProgress(task)}} % </progress>
+          <a class="inline-link" (click)="updateTask(task)"> ({{task.course.name}}) {{task.task.name}}</a>  <progress value="{{task.task.currentProgress}}" max={{task.task.totalEffort}}> {{getProgress(task)}} % </progress>
         </div>
       </div>
     </ng-container>

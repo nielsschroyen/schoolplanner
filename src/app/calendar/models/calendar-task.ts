@@ -1,5 +1,5 @@
 import {Course} from "../../courses/models/course";
-import {Task} from "../../models/task";
+import {Task} from "../../tasks/models/task";
 
 export interface CalendarTask {
   task:Task,

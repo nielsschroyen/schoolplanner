@@ -1,0 +1,44 @@
+<H1>Vakken</H1>
+
+<div *ngIf="courses$ | async as courses else loading">
+
+  <div class="courses-table">
+    <div class="courses-header-column">Naam</div>
+    <div class="courses-header-column">Beschrijving</div>
+    <div class="courses-header-column">Acties</div>
+    <ng-container *ngFor="let course of courses">
+      <div class="courses-column courses-first-column">
+        <div-vertical-align>
+          {{course.name }}
+        </div-vertical-align>
+      </div>
+      <div class="courses-column">
+        <div-vertical-align>
+          {{course.description}}
+        </div-vertical-align>
+      </div>
+      <div class="courses-column">
+        <div-vertical-align>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary">
+              <i class="bi bi-pencil-fill"></i>
+              <span class="visually-hidden">Wijzigen</span>
+            </button>
+            <button type="button" class="btn btn-outline-danger" (click)="onDelete(course)">
+              <i  style="font-size: 20px;" class="bi bi-x-circle-fill"></i>
+              <span class="visually-hidden">Verwijderen</span>
+            </button>
+          </div>
+        </div-vertical-align>
+      </div>
+    </ng-container>
+  </div>
+
+  <div style="margin-top:50px;">
+    <app-add-course (onCourseAdded)="onCourseAdded($event)"></app-add-course>
+  </div>
+
+
+</div>
+
+<ng-template #loading>...</ng-template>

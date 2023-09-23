@@ -1,8 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Course} from "../models/course";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CourseService} from "../course.service";
-import {assignToType} from "../../utils/assignToType";
+import {assignToType} from "../../utils/functions/function.utils";
 
 @Component({
   selector: 'app-add-course',
@@ -34,7 +34,6 @@ export class AddCourseComponent implements OnInit {
         this.addCourseForm.reset();
       });
   }
-
 
   ngOnInit(): void {
   }

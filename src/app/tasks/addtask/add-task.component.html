@@ -1,0 +1,108 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Taak toevoegen</h4>
+    <button
+            type="button"
+            class="btn-close"
+            aria-label="Close button"
+            aria-describedby="modal-title"
+            (click)="dismiss()"
+    ></button>
+</div>
+<div class="modal-body">
+
+    <form [formGroup]="addTaskForm">
+        <div class="container">
+            <div class="mb-3 row">
+                <div class="col">
+                    <label for="courseId">Vak*</label>
+                    <ng-container *ngIf="courses$ | async as courses">
+                        <select class="form-select" aria-label="Default select example" formControlName="courseId"
+                                name="courseId"
+                                id="courseId">
+                            <option [ngValue]="course.id" *ngFor="let course of courses">
+                                {{course.name}}
+                            </option>
+                        </select>
+
+                        <div [hidden]="!courseId?.invalid || !courseId?.dirty"
+                             class="alert alert-danger">
+                            Vak is verplicht
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col">
+                    <label for="name">Naam*</label>
+                    <input type="text" class="form-control"
+                           formControlName="name"
+                           name="name"
+                           id="name">
+                    <div [hidden]="!name?.invalid || !name?.dirty"
+                         class="alert alert-danger">
+                        Naam is verplicht
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="name">Beschrijving*</label>
+                    <input id="description"
+                           name="description"
+                           formControlName="description"
+                           type="text"
+                           class="form-control">
+                    <div [hidden]="!description?.invalid || !description?.dirty"
+                         class="alert alert-danger">
+                        Beschrijving is verplicht
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col">
+                    <label for="name">Uitleg*</label>
+                    <input id="explanation"
+                           name="explanation"
+                           formControlName="explanation"
+                           type="text"
+                           class="form-control">
+                    <div [hidden]="!explanation?.invalid || !explanation?.dirty"
+                         class="alert alert-danger">
+                        Uitleg is verplicht
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="name">Materialen*</label>
+                    <input id="materials"
+                           name="materials"
+                           formControlName="materials"
+                           type="text"
+                           class="form-control">
+                    <div [hidden]="!materials?.invalid || !materials?.dirty"
+                         class="alert alert-danger">
+                        Materialen zijn verplicht
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col">
+                    <label for="name">Aantal werk*</label>
+                    <input id="totalEffort"
+                           name="totalEffort"
+                           formControlName="totalEffort"
+                           type="text"
+                           class="form-control">
+                    <div [hidden]="!totalEffort?.invalid || !totalEffort?.dirty"
+                         class="alert alert-danger">
+                        Aantal werk is verplicht
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="dismiss()">Annuleren</button>
+    <button type="button" [disabled]="!addTaskForm.valid" class="btn btn-primary" (click)="confirm()">Toevoegen</button>
+</div>
+
+

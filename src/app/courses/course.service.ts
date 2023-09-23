@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Course} from "./models/course";
-import {Observable, tap} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {EnvironmentService} from "../environment.service";
 
 @Injectable({
@@ -28,7 +28,17 @@ export class CourseService {
       .put<Course>(this._getApi() + '/course/'+course.id, course)
   }
 
+    public delete(course: Course):Observable<boolean> {
+        return this._httpClient
+            .delete(this._getApi() + '/course/'+course.id)
+            .pipe(
+              map(() => true)
+            );
+    }
+
   private _getApi(): String{
     return this._environmentService.getApiUrl();
   }
+
+
 }
