@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "dobuilprod": "ng build --configuration=production && mv dist/apps/schoolplanner-fe  _static"
   },
   "private": true,
   "dependencies": {
