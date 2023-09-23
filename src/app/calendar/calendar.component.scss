@@ -43,6 +43,19 @@ a.inline-link:hover{
   text-decoration: underline;
 }
 
+.task-table{
+  display: grid;
+  grid-template-columns: auto 270px;
+}
+
+.planning-done{
+  opacity: 60%;
+  font-size: 12px;
+}
+
+.planning-done a{
+  text-decoration: line-through;
+}
 
 
 

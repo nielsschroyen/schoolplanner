@@ -16,7 +16,7 @@
                 <div class="col">
                     <label for="courseId">Vak*</label>
                     <ng-container *ngIf="courses$ | async as courses">
-                        <select class="form-select" aria-label="Default select example" formControlName="courseId"
+                        <select  class="form-select" aria-label="Default select example" formControlName="courseId"
                                 name="courseId"
                                 id="courseId">
                             <option [ngValue]="course.id" *ngFor="let course of courses">
@@ -88,7 +88,9 @@
                     <input id="totalEffort"
                            name="totalEffort"
                            formControlName="totalEffort"
-                           type="text"
+                           type="number"
+                           min="0"
+                           style="width: 100px;"
                            class="form-control">
                     <div [hidden]="!totalEffort?.invalid || !totalEffort?.dirty"
                          class="alert alert-danger">
@@ -102,7 +104,7 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="dismiss()">Annuleren</button>
-    <button type="button" [disabled]="!addTaskForm.valid" class="btn btn-primary" (click)="confirm()">Toevoegen</button>
+    <button type="button" ngbAutofocus [disabled]="!addTaskForm.valid" class="btn btn-primary" (click)="confirm()">Toevoegen</button>
 </div>
 
 

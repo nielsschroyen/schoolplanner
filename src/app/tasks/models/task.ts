@@ -14,12 +14,12 @@ export function createEmptyTaskForDate(date:String):Task{
   return {
     totalEffort: 10,
     currentProgress:0,
-    description:'beschrijving',
-    courseId: '5b27d66d-8e21-4789-ac0f-98e694334bf0',
+    description:' ',
+    courseId: '',
     dueDate: date,
-    explanation: 'uitleg',
-    name: 'Toets thema 4',
-    materials: 'boekje',
+    explanation: ' ',
+    name: '',
+    materials: ' ',
     id:undefined
   }
 }

@@ -8,11 +8,34 @@
     <div class="calendar-header-column">Taken</div>
     <ng-container  *ngFor="let calendarDay of calendar.calendarDays">
       <div class="calendar-column calendar-first-column" [ngClass]="{'has-tasks' : calendarDay.tasks.length > 0, 'is-monday': isMonday(calendarDay), 'is-today': calendarDay.today} ">
-      <a class="inline-link" (click)="addTask(calendarDay)"> {{calendarDay.day | date:"EE dd LLL" }} </a>
+      <a class="inline-link" (click)="addTaskOrPlanning(calendarDay)"> {{calendarDay.day | date:"EE dd LLL" }} </a>
       </div>
       <div class="calendar-column"  [ngClass]="{'has-tasks' : calendarDay.tasks.length > 0,'is-monday': isMonday(calendarDay), 'is-today': calendarDay.today} ">
-        <div *ngFor="let task of calendarDay.tasks">
-          <a class="inline-link" (click)="updateTask(task)"> ({{task.course.name}}) {{task.task.name}}</a>  <progress value="{{task.task.currentProgress}}" max={{task.task.totalEffort}}> {{getProgress(task)}} % </progress>
+        <div *ngFor="let calendarTask of calendarDay.tasks">
+            <div class="task-table">
+              <div>
+                <a class="inline-link" (click)="updateTask(calendarTask)">({{calendarTask.course.name}}) {{calendarTask.task.name}}</a>
+              </div>
+              <div style="margin-top: -1px;">
+                <div class="progress" style="display: inline-flex; width: 240px; margin-left:20px;">
+                  <div class="progress-bar" role="progressbar" [style.width] = totalPlannedDoneWidth(calendarTask) [attr.aria-valuenow]=calendarTask.totalPlannedDone aria-valuemin="0" [attr.aria-valuemax]=calendarTask.task.totalEffort>
+                    {{calendarTask.totalPlannedDone}}/{{calendarTask.task.totalEffort}}
+                  </div>
+                  <div class="progress-bar bg-warning" role="progressbar" [style.width] = totalPlannedNotDoneWidth(calendarTask) [attr.aria-valuenow]=calendarTask.totalPlannedNotDone aria-valuemin="0" [attr.aria-valuemax]=calendarTask.task.totalEffort>
+                    {{calendarTask.totalPlannedNotDone}}/{{calendarTask.task.totalEffort}}
+                  </div>
+                  <div class="progress-bar bg-danger" role="progressbar" [style.width] = effortWidth(remainingEffort(calendarTask),calendarTask) [attr.aria-valuenow]=calendarTask.totalPlannedNotDone aria-valuemin="0" [attr.aria-valuemax]=calendarTask.task.totalEffort>
+                    {{remainingEffort(calendarTask)}}/{{calendarTask.task.totalEffort}}
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let planning of calendarDay.plannings"  [ngClass]="{'planning-done' : planning.planning.done}">
+          <span class="badge bg-primary" style="font-weight: normal; margin-right: 5px">P</span>
+          <a class="inline-link" (click)="updatePlanning(planning)">
+          ({{planning.calendarTask.course.name}}) {{planning.calendarTask.task.name}}  ({{planning.planning.effort}}/{{planning.calendarTask.task.totalEffort}})
+        </a>
         </div>
       </div>
     </ng-container>

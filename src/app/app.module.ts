@@ -14,16 +14,23 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {AddTaskComponent} from "./tasks/addtask/add-task.component";
 import {ModalConfirmComponent} from "./utils/modals/confirm/modal-confirm.component";
 import {EditTaskComponent} from "./tasks/edittask/edit-task.component";
+import {
+  NewTaskOrPlanningPickerComponent
+} from "./calendar/newtaskorplanningpicker/new-task-or-planning-picker.component";
+import {AddPlanningComponent} from "./planning/addplanning/add-planning.component";
+import {EditPlanningComponent} from "./planning/editplanning/edit-planning.component";
 
 @NgModule({
   declarations: [
-
     AppComponent,
     CoursesComponent,
     CalendarComponent,
     AddCourseComponent,
     AddTaskComponent,
     EditTaskComponent,
+    AddPlanningComponent,
+    EditPlanningComponent,
+    NewTaskOrPlanningPickerComponent,
     DivVerticalAlignComponent,
     ModalConfirmComponent,
   ],

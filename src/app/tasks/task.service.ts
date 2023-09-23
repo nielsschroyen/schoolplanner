@@ -4,6 +4,7 @@ import {map, Observable} from "rxjs";
 import {EnvironmentService} from "../environment.service";
 import {Task} from "./models/task"
 import {Course} from "../courses/models/course";
+import {CalendarTask} from "../calendar/models/calendar-task";
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,13 @@ export class TaskService {
             map(() => true)
         );
   }
+
+  public listNext(date:String): Observable<CalendarTask[]> {
+    return this._httpClient
+        .get<CalendarTask[]>(this._getApi() + "/task/next/"+date);
+
+  }
+
 
   private _getApi(): String{
     return this._environmentService.getApiUrl();
