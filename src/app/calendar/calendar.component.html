@@ -10,13 +10,13 @@
       <div class="calendar-column calendar-first-column" [ngClass]="{'has-tasks' : calendarDay.tasks.length > 0, 'is-monday': isMonday(calendarDay), 'is-today': calendarDay.today} ">
       <a class="inline-link" (click)="addTaskOrPlanning(calendarDay)"> {{calendarDay.day | date:"EE dd LLL" }} </a>
       </div>
-      <div class="calendar-column"  [ngClass]="{'has-tasks' : calendarDay.tasks.length > 0,'is-monday': isMonday(calendarDay), 'is-today': calendarDay.today} ">
+      <div class="calendar-column calendar-last-column"  [ngClass]="{'has-tasks' : calendarDay.tasks.length > 0,'is-monday': isMonday(calendarDay), 'is-today': calendarDay.today} ">
         <div *ngFor="let calendarTask of calendarDay.tasks">
-            <div class="task-table">
+            <div class="task-table"  [ngClass]="{'is-exam': calendarTask.task.isExam}">
               <div>
                 <a class="inline-link" (click)="updateTask(calendarTask)">({{calendarTask.course.name}}) {{calendarTask.task.name}}</a>
               </div>
-              <div style="margin-top: -1px;">
+              <div *ngIf="calendarTask.task.totalEffort !== 0" style="margin-top: -1px;">
                 <div class="progress" style="display: inline-flex; width: 240px; margin-left:20px;">
                   <div class="progress-bar" role="progressbar" [style.width] = totalPlannedDoneWidth(calendarTask) [attr.aria-valuenow]=calendarTask.totalPlannedDone aria-valuemin="0" [attr.aria-valuemax]=calendarTask.task.totalEffort>
                     {{calendarTask.totalPlannedDone}}/{{calendarTask.task.totalEffort}}

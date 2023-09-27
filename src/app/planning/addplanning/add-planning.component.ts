@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {overwriteWith} from "../../utils/functions/function.utils";
 import {PlanningService} from "../planning.service";
 import {CalendarTask, effortWidth, totalPlannedDoneWidth} from "../../calendar/models/calendar-task";
 import {TaskService} from "../../tasks/task.service";
 import {Planning} from "../models/planning";
+import {NextTasksForPlanning} from "../../calendar/models/next-tasks-for-planning";
 
 @Component({
     selector: 'app-add-planning',
@@ -16,7 +17,11 @@ import {Planning} from "../models/planning";
 export class AddPlanningComponent implements OnInit {
 
     @Input() modalFormModel?: Planning
-    calendarTasks$: BehaviorSubject<CalendarTask[]> = new BehaviorSubject<CalendarTask[]>([]);
+    calendarTasks$: BehaviorSubject<NextTasksForPlanning> = new BehaviorSubject<NextTasksForPlanning>({
+      nonPlannableTasks:[],
+      fullyPlannedTasks:[],
+      notFullyPlannedTasks:[]
+    });
     selectedCalendarTask?: CalendarTask;
 
     protected readonly totalPlannedDoneWidth = totalPlannedDoneWidth;
@@ -69,7 +74,7 @@ export class AddPlanningComponent implements OnInit {
     selectCalendarTask() {
         let selectedTaskId = this.addPlanningForm.get('taskId')?.value
         if(selectedTaskId){
-            this.selectedCalendarTask  = this.calendarTasks$.value.find(x=> x.task.id === selectedTaskId)
+            this.selectedCalendarTask  = this._findCalendarTask(selectedTaskId);
         }else{
             this.selectedCalendarTask = undefined;
         }
@@ -90,4 +95,11 @@ export class AddPlanningComponent implements OnInit {
         let remainingEffort = calendarTask.task.totalEffort - (this.currentEffort(calendarTask) + calendarTask.totalPlannedDone);
         return remainingEffort < 0 ?0 : remainingEffort ;
     }
+
+  private _findCalendarTask(selectedTaskId: any):CalendarTask | undefined {
+    return this.calendarTasks$.value.notFullyPlannedTasks
+        .concat(this.calendarTasks$.value.fullyPlannedTasks)
+        .concat(this.calendarTasks$.value.nonPlannableTasks)
+         .find(x=> x.task.id === selectedTaskId)
+  }
 }

@@ -24,10 +24,10 @@ export class AddTaskComponent implements OnInit {
             description: new FormControl('', [Validators.required]),
             explanation: new FormControl('', [Validators.required]),
             materials: new FormControl('', [Validators.required]),
+            isExam: new FormControl('', []),
             totalEffort: new FormControl('', [Validators.required]),
         }
     );
-
 
     constructor(private _taskService: TaskService,
                 private _modal: NgbActiveModal,

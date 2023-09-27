@@ -7,7 +7,8 @@ export interface Task {
   totalEffort:number,
   description:String,
   explanation:String,
-  materials:String
+  materials:String,
+  isExam:boolean,
 }
 
 export function createEmptyTaskForDate(date:String):Task{
@@ -20,6 +21,7 @@ export function createEmptyTaskForDate(date:String):Task{
     explanation: ' ',
     name: '',
     materials: ' ',
+    isExam:false,
     id:undefined
   }
 }

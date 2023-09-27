@@ -1,13 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {overwriteWith} from "../../utils/functions/function.utils";
 import {PlanningService} from "../planning.service";
 import {CalendarTask, effortWidth, totalPlannedDoneWidth} from "../../calendar/models/calendar-task";
 import {TaskService} from "../../tasks/task.service";
 import {Planning} from "../models/planning";
 import {ModalService} from "../../utils/modals/modal.service";
+import {NextTasksForPlanning} from "../../calendar/models/next-tasks-for-planning";
 
 @Component({
     selector: 'app-edit-planning',
@@ -17,7 +18,11 @@ import {ModalService} from "../../utils/modals/modal.service";
 export class EditPlanningComponent implements OnInit {
 
     @Input() modalFormModel?: Planning
-    calendarTasks$: BehaviorSubject<CalendarTask[]> = new BehaviorSubject<CalendarTask[]>([]);
+  calendarTasks$: BehaviorSubject<NextTasksForPlanning> = new BehaviorSubject<NextTasksForPlanning>({
+    nonPlannableTasks:[],
+    fullyPlannedTasks:[],
+    notFullyPlannedTasks:[]
+  });
     selectedCalendarTask?: CalendarTask;
 
     protected readonly totalPlannedDoneWidth = totalPlannedDoneWidth;
@@ -62,7 +67,7 @@ export class EditPlanningComponent implements OnInit {
 
     confirm() {
         let newPlanning: Planning = overwriteWith(this.modalFormModel!, this.editPlanningForm.value);
-        this._planningService.create(newPlanning)
+        this._planningService.update(newPlanning)
             .subscribe((planning: Planning) => {
                 this._modal.close(planning);
             });
@@ -71,7 +76,7 @@ export class EditPlanningComponent implements OnInit {
     selectCalendarTask() {
         let selectedTaskId = this.editPlanningForm.get('taskId')?.value
         if(selectedTaskId){
-            this.selectedCalendarTask  = this.calendarTasks$.value.find(x=> x.task.id === selectedTaskId)
+          this.selectedCalendarTask  = this._findCalendarTask(selectedTaskId);
         }else{
             this.selectedCalendarTask = undefined;
         }
@@ -113,4 +118,11 @@ export class EditPlanningComponent implements OnInit {
         this._planningService.setDone(this.modalFormModel!)
             .subscribe(()=>this._modal.close('done'));
     }
+
+  private _findCalendarTask(selectedTaskId: any):CalendarTask | undefined {
+    return this.calendarTasks$.value.notFullyPlannedTasks
+      .concat(this.calendarTasks$.value.fullyPlannedTasks)
+      .concat(this.calendarTasks$.value.nonPlannableTasks)
+      .find(x=> x.task.id === selectedTaskId)
+  }
 }

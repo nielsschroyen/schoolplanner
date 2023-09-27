@@ -10,15 +10,33 @@
 }
 
 .calendar-table .calendar-column.has-tasks {
-  background-color: #ddf0ee;
+
 }
 
 .calendar-table .calendar-first-column {
   font-weight: bolder;
 }
 
+.calendar-table .is-today{
+  background-color: #e9f5f4;
+  padding-top:10px;
+  padding-bottom: 10px;
+}
+
+.is-exam,
+.is-exam a,
+.is-exam a:visited,
+.is-exam a:hover{
+  color: limegreen!important;
+}
+
 .calendar-table .calendar-first-column.is-today {
   border-left: 2px solid #288be3;
+  font-size: 20px;
+}
+
+.calendar-table .calendar-last-column.is-today {
+  border-right: 2px solid #288be3;
 }
 
 .calendar-table .calendar-header-column{
