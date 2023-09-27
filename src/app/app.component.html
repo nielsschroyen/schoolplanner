@@ -13,7 +13,7 @@
 
   <ul class="top-navigation-links">
     <li>
-      <a [routerLink]="['/kalender']" [routerLinkActive]="['is-active']" >
+      <a [routerLink]="['/'+getTenantName()+'/kalender']" [routerLinkActive]="['is-active']" >
         <div class="top-navigation-links-wrapper-1">
           <div class="top-navigation-links-wrapper-2">
             <div>
@@ -23,7 +23,7 @@
         </div>
       </a>
     </li>
-    <li><a  [routerLink]="['/vakken']" [routerLinkActive]="['is-active']">
+    <li><a  [routerLink]="['/'+getTenantName()+'/vakken']" [routerLinkActive]="['is-active']">
       <div class="top-navigation-links-wrapper-1">
         <div class="top-navigation-links-wrapper-2">
           <div>
@@ -32,15 +32,6 @@
         </div>
       </div>
 
-    </a></li>
-    <li><a href="/taken">
-      <div class="top-navigation-links-wrapper-1">
-        <div class="top-navigation-links-wrapper-2">
-          <div>
-            Taken
-          </div>
-        </div>
-      </div>
     </a></li>
   </ul>
 </div>
